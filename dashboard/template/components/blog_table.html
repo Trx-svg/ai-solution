@@ -1,0 +1,61 @@
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">S.No</th>
+            <th scope="col">Image</th>
+            <th scope="col">Name</th>
+            <th scope="col">Description</th>
+            <th scope="col">Content</th>
+            <th scope="col">View Count</th>
+            <th scope="col">Created Date</th>
+            <th scope="col">Updated Date</th>
+            <th scope="col">Created By</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for blog in blogs %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>
+                {% if blog.image %}
+                    <img src="{{ blog.image.url }}"
+                         alt="{{ blog.name }} image"
+                         style="width: 40px; height: 40px; object-fit: contain;">
+                {% else %}
+                    <div class="text-muted">No image</div>
+                {% endif %}
+            </td>
+            <td>{{ blog.name }}</td>
+            <td>{{ blog.description }}</td>
+            <td>{{ blog.blog_content|safe|truncatewords_html:10 }}</td>
+            <td>{{ blog.blog_view_count }}</td>
+            <td>{{ blog.created_date|date:"M d, Y" }}</td>
+            <td>{{ blog.updated_date|date:"M d, Y" }}</td>
+            <td>{{ blog.created_by.username }}</td>
+            <td>
+                <div class="btn-group gap-2" role="group">
+                    <button class="btn btn-warning btn-sm"
+                            hx-get="{% url 'admin_blog_form' %}?id={{ blog.id }}"
+                            hx-target="#blogModal"
+                            hx-trigger="click"
+                            hx-on::after-request="new bootstrap.Modal(document.getElementById('blogModal')).show()">
+                        Edit
+                    </button>
+                    <button class="btn btn-danger btn-sm"
+                            hx-delete="{% url 'delete_blog' blog.id %}"
+                            hx-target="#blog-table"
+                            hx-confirm="Are you sure you want to delete this blog?"
+                            hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
+                        Delete
+                    </button>
+                </div>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="10" class="text-center">No blogs found</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

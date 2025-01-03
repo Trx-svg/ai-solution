@@ -1,0 +1,56 @@
+{% extends 'shared/dashboard_base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <div class="page-inner">
+        <div class="page-header">
+          <h3 class="fw-bold mb-3">Logo</h3>
+          <ul class="breadcrumbs mb-3">
+            <li class="nav-home">
+              <a href="#">
+                <i class="icon-home"></i>
+              </a>
+            </li>
+            <li class="separator">
+              <i class="icon-arrow-right"></i>
+            </li>
+            <li class="nav-item">
+              <a>Site</a>
+            </li>
+            <li class="separator">
+              <i class="icon-arrow-right"></i>
+            </li>
+            <li class="nav-item">
+              <a href="{% url 'logo' %}">Logo</a>
+            </li>
+          </ul>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header d-flex justify-content-between align-items-center">
+                <div class="card-title">Logo Table</div>
+                <button class="btn btn-primary btn-sm"
+                        hx-get="{% url 'admin_site_logo_form' %}"
+                        hx-target="#logoModal"
+                        hx-trigger="click"
+                        hx-on::after-request="new bootstrap.Modal(document.getElementById('logoModal')).show()">
+                    Add Logo
+                </button>
+              </div>
+              <div class="card-body">
+                <div id="logo-table">
+                    {% include 'components/logo_table.html' %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Container -->
+<div id="logoModal" class="modal" tabindex="-1">
+</div>
+{% endblock %}

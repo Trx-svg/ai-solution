@@ -1,0 +1,306 @@
+{% extends 'shared/dashboard_base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="page-inner">
+            <div
+              class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4"
+            >
+              <div>
+                <h3 class="fw-bold mb-3">Dashboard</h3>
+                <h6 class="op-7 mb-2">Welcome to the dashboard of the AI-Solution Website.</h6>
+              </div>
+            </div>
+            <div class="row row-card-no-pd">
+              <div class="col-12 col-sm-6 col-md-6 col-xl-3">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <h6><b>Total Events</b></h6>
+                                <p class="text-muted">Event Status</p>
+                            </div>
+                            <h4 class="text-info fw-bold">{{ total_events }}</h4>
+                        </div>
+                        <div class="progress progress-sm">
+                            <div
+                                class="progress-bar bg-info"
+                                role="progressbar"
+                                style="width: {{ completion_percentage }}%"
+                                aria-valuenow="{{ completion_percentage }}"
+                                aria-valuemin="0"
+                                aria-valuemax="100"
+                            ></div>
+                        </div>
+                        <div class="d-flex justify-content-between mt-2">
+                            <p class="text-muted mb-0">Completed</p>
+                            <p class="text-muted mb-0">{{ completion_percentage }}%</p>
+                        </div>
+                    </div>
+                </div>
+              </div>
+              <div class="col-12 col-sm-6 col-md-6 col-xl-3">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <h6><b>Total Inquiry</b></h6>
+                                <p class="text-muted">New Inquiry</p>
+                            </div>
+                            <h4 class="text-success fw-bold">{{ total_inquiries }}</h4>
+                        </div>
+                        <div class="progress progress-sm">
+                            <div
+                                class="progress-bar bg-success"
+                                role="progressbar"
+                                style="width: {{ increase_rate }}%"
+                                aria-valuenow="{{ increase_rate }}"
+                                aria-valuemin="0"
+                                aria-valuemax="100"
+                            ></div>
+                        </div>
+                        <div class="d-flex justify-content-between mt-2">
+                            <p class="text-muted mb-0">Increase Rate</p>
+                            <p class="text-muted mb-0">{{ increase_rate }}%</p>
+                        </div>
+                    </div>
+                </div>
+              </div>
+              <div class="col-12 col-sm-6 col-md-6 col-xl-3">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <h6><b>Total Blogs</b></h6>
+                                <p class="text-muted">Blog View</p>
+                            </div>
+                            <h4 class="text-danger fw-bold">{{ total_blogs }}</h4>
+                        </div>
+                        <div class="progress progress-sm">
+                            <div
+                                class="progress-bar bg-danger"
+                                role="progressbar"
+                                style="width: {{ view_rate }}%"
+                                aria-valuenow="{{ view_rate }}"
+                                aria-valuemin="0"
+                                aria-valuemax="100"
+                            ></div>
+                        </div>
+                        <div class="d-flex justify-content-between mt-2">
+                            <p class="text-muted mb-0">Views Rate</p>
+                            <p class="text-muted mb-0">{{ view_rate }}%</p>
+                        </div>
+                    </div>
+                </div>
+              </div>
+              <div class="col-12 col-sm-6 col-md-6 col-xl-3">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <h6><b>Total Admin Users</b></h6>
+                                <p class="text-muted">Joined New User</p>
+                            </div>
+                            <h4 class="text-secondary fw-bold">{{ total_users }}</h4>
+                        </div>
+                        <div class="progress progress-sm">
+                            <div
+                                class="progress-bar bg-secondary"
+                                role="progressbar"
+                                style="width: {{ weekly_percentage }}%"
+                                aria-valuenow="{{ weekly_percentage }}"
+                                aria-valuemin="0"
+                                aria-valuemax="100"
+                            ></div>
+                        </div>
+                        <div class="d-flex justify-content-between mt-2">
+                            <p class="text-muted mb-0">Weekly</p>
+                            <p class="text-muted mb-0">{{ weekly_percentage }}%</p>
+                        </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body pb-0">
+                            <div class="h1 fw-bold float-end text-primary">+5%</div>
+                            <h2 class="mb-2">1</h2>
+                            <p class="text-muted">Users online</p>
+                            <div class="pull-in sparkline-fix">
+                                <div id="lineChart"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body pb-0">
+                            <div class="h1 fw-bold float-end text-danger">-3%</div>
+                            <h2 class="mb-2">2</h2>
+                            <p class="text-muted">New Services</p>
+                            <div class="pull-in sparkline-fix">
+                                <div id="lineChart2"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body pb-0">
+                            <div class="h1 fw-bold float-end text-warning">+7%</div>
+                            <h2 class="mb-2">13</h2>
+                            <p class="text-muted">Image Add</p>
+                            <div class="pull-in sparkline-fix">
+                                <div id="lineChart3"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="card">
+                      <div class="card-header">
+                        <div class="card-title">Page visits</div>
+                      </div>
+                      <div class="card-body p-0">
+                        <div class="table-responsive">
+                          <!-- Projects table -->
+                          <table class="table align-items-center mb-0">
+                            <thead class="thead-light">
+                              <tr>
+                                <th scope="col">Page name</th>
+                                <th scope="col">Visitors</th>
+                                <th scope="col">Unique users</th>
+                                <th scope="col">Bounce rate</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <th scope="row">/home/</th>
+                                <td>49</td>
+                                <td>30</td>
+                                <td>
+                                  <i class="fas fa-arrow-up text-success me-3"></i>
+                                  46,53%
+                                </td>
+                              </tr>
+                              <tr>
+                                <th scope="row">/Service/</th>
+                                <td>85</td>
+                                <td>19</td>
+                                <td>
+                                  <i
+                                    class="fas fa-arrow-down text-warning me-3"
+                                  ></i>
+                                  46,53%
+                                </td>
+                              </tr>
+                              <tr>
+                                <th scope="row">/Gallery/</th>
+                                <td>13</td>
+                                <td>4</td>
+                                <td>
+                                  <i
+                                    class="fas fa-arrow-down text-warning me-3"
+                                  ></i>
+                                  36,49%
+                                </td>
+                              </tr>
+                              <tr>
+                                <th scope="row">/Event/</th>
+                                <td>50</td>
+                                <td>7</td>
+                                <td>
+                                  <i class="fas fa-arrow-up text-success me-3"></i>
+                                  50,87%
+                                </td>
+                              </tr>
+                              <tr>
+                                <th scope="row">/About/</th>
+                                <td>5</td>
+                                <td>0</td>
+                                <td>
+                                  <i class="fas fa-arrow-down text-danger me-3"></i>
+                                  46,53%
+                                </td>
+                              </tr>
+                              <tr>
+                                <th scope="row">/Blog/</th>
+                                <td>55</td>
+                                <td>10</td>
+                                <td>
+                                  <i class="fas fa-arrow-up text-success me-3"></i>
+                                  46,53%
+                                </td>
+                              </tr>
+                              <tr>
+                                <th scope="row">/Contact/</th>
+                                <td>85</td>
+                                <td>19</td>
+                                <td>
+                                  <i
+                                    class="fas fa-arrow-down text-warning me-3"
+                                  ></i>
+                                  46,53%
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-head-row card-tools-still-right">
+                            <div class="card-title">Recent Inquiry</div>
+                            <div class="card-tools">
+                                <div class="dropdown">
+                                    <button
+                                        class="btn btn-icon btn-clean"
+                                        type="button"
+                                        id="dropdownMenuButton"
+                                        data-bs-toggle="dropdown"
+                                        aria-haspopup="true"
+                                        aria-expanded="false"
+                                    >
+                                        <i class="fas fa-ellipsis-h"></i>
+                                    </button>
+                                    <div
+                                        class="dropdown-menu"
+                                        aria-labelledby="dropdownMenuButton"
+                                    >
+                                        <a class="dropdown-item" href="#">View All</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <ol class="activity-feed">
+                            {% for inquiry in recent_inquiries %}
+                            <li class="feed-item {{ inquiry.color_class }}">
+                                <time class="date" datetime="{{ inquiry.date|date:'Y-m-d' }}">
+                                    {{ inquiry.date|date:"M d" }}
+                                </time>
+                                <span class="text">
+                                    New inquiry from
+                                    <a href="#">{{ inquiry.name }}</a>
+                                </span>
+                            </li>
+                            {% endfor %}
+                        </ol>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

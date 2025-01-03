@@ -1,0 +1,57 @@
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">S.No</th>
+            <th scope="col">Icon</th>
+            <th scope="col">Name</th>
+            <th scope="col">Description</th>
+            <th scope="col">Created Date</th>
+            <th scope="col">Updated Date</th>
+            <th scope="col">Created By</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for service in services %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>
+                {% if service.icon %}
+                    <img src="{{ service.icon.url }}"
+                         alt="{{ service.name }} icon"
+                         style="width: 40px; height: 40px; object-fit: contain;">
+                {% else %}
+                    <div class="text-muted">No icon</div>
+                {% endif %}
+            </td>
+            <td>{{ service.name }}</td>
+            <td>{{ service.description }}</td>
+            <td>{{ service.created_date|date:"M d, Y" }}</td>
+            <td>{{ service.updated_date|date:"M d, Y" }}</td>
+            <td>{{ service.created_by.username }}</td>
+            <td>
+                <div class="btn-group gap-2" role="group">
+                    <button class="btn btn-warning btn-sm"
+                            hx-get="{% url 'admin_service_form' %}?id={{ service.id }}"
+                            hx-target="#serviceModal"
+                            hx-trigger="click"
+                            hx-on::after-request="new bootstrap.Modal(document.getElementById('serviceModal')).show()">
+                        Edit
+                    </button>
+                    <button class="btn btn-danger btn-sm"
+                            hx-delete="{% url 'delete_service' service.id %}"
+                            hx-target="#service-table"
+                            hx-confirm="Are you sure you want to delete this service?"
+                            hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
+                        Delete
+                    </button>
+                </div>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="8" class="text-center">No services found</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

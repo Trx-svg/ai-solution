@@ -1,0 +1,182 @@
+
+.timeline-wrapper {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.timeline {
+    position: relative;
+    padding: 20px 0;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: #333;
+    transform: translateX(-50%);
+}
+
+.timeline-item {
+    margin-bottom: 40px;
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.timeline-marker {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 3px solid #1a1a1a;
+    background: #2196f3;
+    box-shadow: 0 0 0 4px rgba(33, 150, 243, 0.2);
+}
+
+.timeline-date {
+    position: absolute;
+    left: calc(50% - 100px);
+    text-align: right;
+    width: 80px;
+}
+
+.timeline-date .date {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1a1a1a;
+    display: block;
+}
+
+.timeline-date .month {
+    font-size: 14px;
+    text-transform: uppercase;
+    color: #1a1a1a;
+    display: block;
+}
+
+.timeline-date .year {
+    font-size: 12px;
+    color: #888;
+}
+
+.timeline-card {
+    width: calc(50% - 50px);
+    margin-left: auto;
+    background: #242424;
+    border-radius: 8px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+    overflow: hidden;
+}
+
+.timeline-item:nth-child(even) .timeline-card {
+    margin-left: 0;
+    margin-right: auto;
+}
+
+.timeline-item:nth-child(even) .timeline-date {
+    left: auto;
+    right: calc(50% - 100px);
+    text-align: left;
+}
+
+.card-header {
+    padding: 15px 20px;
+    background: #2d2d2d;
+    border-bottom: 1px solid #333;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-header h3 {
+    margin: 0;
+    font-size: 18px;
+    color: #fff;
+}
+
+.status-badge {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.status-badge.completed {
+    background: #00796b;
+    color: #fff;
+}
+
+.status-badge.scheduled {
+    background: #f57c00;
+    color: #fff;
+}
+
+.card-body {
+    padding: 20px;
+    color: #ddd;
+}
+
+.event-meta {
+    margin-top: 15px;
+    display: flex;
+    gap: 20px;
+}
+
+.meta-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: #bbb;
+    font-size: 14px;
+}
+
+.no-events {
+    text-align: center;
+    padding: 40px;
+    color: #888;
+}
+
+.no-events i {
+    font-size: 48px;
+    margin-bottom: 15px;
+}
+
+@media (max-width: 768px) {
+    .timeline::before {
+        left: 40px;
+    }
+
+    .timeline-marker {
+        left: 40px;
+    }
+
+    .timeline-date {
+        left: 0;
+        top: -30px;
+        text-align: left;
+    }
+
+    .timeline-card {
+        width: calc(100% - 80px);
+        margin-left: 80px;
+    }
+
+    .timeline-item:nth-child(even) .timeline-card {
+        margin-left: 80px;
+        margin-right: 0;
+    }
+
+    .timeline-item:nth-child(even) .timeline-date {
+        left: 0;
+        right: auto;
+    }
+}

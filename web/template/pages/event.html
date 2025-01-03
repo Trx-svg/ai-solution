@@ -1,0 +1,61 @@
+{% extends 'shared/website_base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="hero-wrap hero-wrap-2" style="background-image: url('{% static "images/1-bread-home.jpeg" %}');" data-stellar-background-ratio="0.5">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-center">
+            <div class="col-md-9 ftco-animate pb-5 text-center">
+                <h2 class="mb-0 bread">Events</h2>
+                <p class="breadcrumbs"><span class="mr-2"><a href="{% url 'home' %}">Home <i class="ion-ios-arrow-round-forward"></i></a></span> <span>Events</span></p>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="ftco-section ftco-no-pt ftco-no-pb">
+    <div class="container-fluid p-0">
+        <div class="timeline-wrapper">
+            <div class="timeline">
+                {% for event in events %}
+                <div class="timeline-item {% if event.held_status %}past{% else %}upcoming{% endif %}">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-date">
+                        <span class="date">{{ event.date_time|date:"d" }}</span>
+                        <span class="month">{{ event.date_time|date:"M" }}</span>
+                        <span class="year">{{ event.date_time|date:"Y" }}</span>
+                    </div>
+                    <div class="timeline-card">
+                        <div class="card-header">
+                            <h3>{{ event.name }}</h3>
+                            <span class="status-badge {% if event.held_status %}completed{% else %}scheduled{% endif %}">
+                                {{ event.held_status|yesno:"Completed,Upcoming" }}
+                            </span>
+                        </div>
+                        <div class="card-body">
+                            <p>{{ event.description }}</p>
+                            <div class="event-meta">
+                                <div class="meta-item">
+                                    <i class="far fa-clock"></i>
+                                    {{ event.date_time|date:"g:i A" }}
+                                </div>
+                                <div class="meta-item">
+                                    <i class="fas fa-globe"></i>
+                                    {{ event.timezone.timezone }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="no-events">
+                    <i class="fas fa-calendar-times"></i>
+                    <p>No events scheduled</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

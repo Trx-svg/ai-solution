@@ -1,0 +1,153 @@
+{% load static %}
+
+<!-- START Side Navigation Bar -->
+<div class="sidebar sidebar-style-2" data-background-color="dark">
+    <div class="sidebar-logo">
+      <!-- Logo Header -->
+      <div class="logo-header" data-background-color="dark">
+        <a href="{% url 'index' %}" class="logo">
+          <img
+            src="{% static 'img/kaiadmin/logo_light.svg' %}"
+            alt="navbar brand"
+            class="navbar-brand"
+            height="20"
+          />
+        </a>
+        <div class="nav-toggle">
+          <button class="btn btn-toggle toggle-sidebar">
+            <i class="gg-menu-right"></i>
+          </button>
+          <button class="btn btn-toggle sidenav-toggler">
+            <i class="gg-menu-left"></i>
+          </button>
+        </div>
+        <button class="topbar-toggler more">
+          <i class="gg-more-vertical-alt"></i>
+        </button>
+      </div>
+      <!-- End Logo Header -->
+    </div>
+    <div class="sidebar-wrapper scrollbar scrollbar-inner">
+      <div class="sidebar-content">
+        <ul class="nav nav-secondary">
+          <li class="nav-item {% if request.path == '/dashboard/' %}active{% endif %}">
+            <a
+              data-bs-toggle="collapse"
+              href="#dashboard"
+              class="collapsed"
+              aria-expanded="false"
+            >
+              <i class="fas fa-home"></i>
+              <p>Dashboard</p>
+              <span class="caret"></span>
+            </a>
+            <div class="collapse" id="dashboard">
+              <ul class="nav nav-collapse">
+                <li class="{% if request.path == '/dashboard/' %}active{% endif %}">
+                  <a href="{% url 'index' %}">
+                    <span class="sub-item">Dashboard</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-section">
+            <span class="sidebar-mini-icon">
+              <i class="fa fa-ellipsis-h"></i>
+            </span>
+            <h4 class="text-section">Components</h4>
+          </li>
+            <li class="nav-item {% if '/dashboard/management/' in request.path %}active{% endif %}">
+            <a data-bs-toggle="collapse" href="#base">
+              <i class="fas fa-th-list"></i>
+              <p>Management</p>
+              <span class="caret"></span>
+            </a>
+            <div class="collapse" id="base">
+              <ul class="nav nav-collapse">
+                <li class="{% if '/dashboard/management/event/' in request.path %}active{% endif %}">
+                  <a href="{% url 'dashboard-events' %}">
+                    <span class="sub-item">Event Timeline</span>
+                  </a>
+                </li>
+                <li class="{% if '/dashboard/management/gallery/' in request.path %}active{% endif %}">
+                  <a href="{% url 'dashboard-gallery' %}">
+                    <span class="sub-item">Gallery</span>
+                  </a>
+                </li>
+                <li class="{% if '/dashboard/management/blog/' in request.path %}active{% endif %}">
+                  <a href="{% url 'dashboard-blog' %}">
+                    <span class="sub-item">Blog</span>
+                  </a>
+                </li>
+                <li class="{% if '/dashboard/management/service/' in request.path %}active{% endif %}">
+                  <a href="{% url 'dashboard-service' %}">
+                    <span class="sub-item">Service</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item {% if '/dashboard/message/' in request.path %}active{% endif %}">
+            <a data-bs-toggle="collapse" href="#forms">
+              <i class="fas fa-pen-square"></i>
+              <p>Message</p>
+              <span class="caret"></span>
+            </a>
+            <div class="collapse" id="forms">
+              <ul class="nav nav-collapse">
+                <li class="{% if '/dashboard/message/inquery/' in request.path %}active{% endif %}">
+                  <a href="{% url 'inquery' %}">
+                    <span class="sub-item">Inquery</span>
+                    <span class="badge badge-success" hx-get="{% url 'get_inquery_count' %}"
+                          hx-trigger="load"
+                          hx-swap="outerHTML">
+                      Loading...
+                    </span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item {% if '/dashboard/site/' in request.path %}active{% endif %}">
+            <a data-bs-toggle="collapse" href="#maps">
+              <i class="fas fa-desktop"></i>
+              <p>Site</p>
+              <span class="caret"></span>
+            </a>
+            <div class="collapse" id="maps">
+              <ul class="nav nav-collapse">
+                <li class="{% if '/dashboard/site/logo/' in request.path %}active{% endif %}">
+                  <a href="{% url 'logo' %}">
+                    <span class="sub-item">Logo</span>
+                  </a>
+                </li>
+                <li class="{% if '/dashboard/site/timezone-settings/' in request.path %}active{% endif %}">
+                  <a href="{% url 'timezone-settings' %}">
+                    <span class="sub-item">Timezone</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item {% if '/dashboard/setting/' in request.path %}active{% endif %}">
+            <a data-bs-toggle="collapse" href="#submenu">
+              <i class="fas fa-cog"></i>
+              <p>Setting</p>
+              <span class="caret"></span>
+            </a>
+            <div class="collapse" id="submenu">
+              <ul class="nav nav-collapse">
+                <li class="{% if '/dashboard/setting/account/' in request.path %}active{% endif %}">
+                  <a href="{% url 'account' %}">
+                    <span class="sub-item">Account</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+</div>
+<!-- END Side Navigation Bar -->

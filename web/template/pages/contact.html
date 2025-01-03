@@ -1,0 +1,82 @@
+{% extends 'shared/website_base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <section class="ftco-section ftco-booking bg-light">
+    	<div class="container ftco-relative">
+    		<div class="row justify-content-center pb-3">
+          <div class="col-md-10 heading-section text-center ftco-animate">
+          	<span class="subheading">Booking</span>
+            <h2 class="mb-4">Make an Appointment</h2>
+            <p>Schedule an appointment to discuss how our AI solutions can transform your business.</p>
+          </div>
+        </div>
+        <h3 class="vr">Call Us: 012-3456-7890</h3>
+    		<div class="row justify-content-center">
+    			<div class="col-md-10 ftco-animate">
+    				<!-- Updated form with HTMX attributes -->
+                    <form hx-post="{% url 'create_appointment' %}"
+                          hx-target="#form-response"
+                          hx-trigger="submit"
+                          hx-swap="innerHTML"
+                          class="appointment-form"
+                          hx-indicator="#loading-indicator"
+                          hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
+                        <!-- Response div for HTMX -->
+                        <div id="form-response" class="mb-2"></div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="name" id="appointment_name" placeholder="Name" required>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <input type="email" class="form-control" name="email" id="appointment_email" placeholder="Email" required>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="address" placeholder="Address" required>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="phone_number" placeholder="Phone Number" required>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="company_name" placeholder="Company Name" required>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <input type="tel" class="form-control" name="country" placeholder="Country" required>
+                                </div>
+                            </div>
+                             <div class="col-sm-12">
+                                <div class="form-group">
+                                    <input type="tel" class="form-control" name="job_title" placeholder="Job Title" required>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <textarea name="job_description" cols="30" rows="7" class="form-control" placeholder="Message"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Make an Appointment" class="btn btn-primary">
+                        </div>
+                        <div id="loading-indicator" class="htmx-indicator">
+                            Loading...
+                        </div>
+                    </form>
+    			</div>
+    		</div>
+    	</div>
+    </section>
+
+{% endblock %}

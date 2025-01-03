@@ -1,0 +1,43 @@
+{% extends 'shared/website_base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <section class="hero-wrap hero-wrap-2" style="background-image: url('{% static "images/1-bread-home.jpeg" %}');" data-stellar-background-ratio="0.5">
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-center">
+          <div class="col-md-9 ftco-animate pb-5 text-center">
+            <h2 class="mb-0 bread">Gallery</h2>
+            <p class="breadcrumbs"><span class="mr-2"><a href="{% url 'home' %}">Home <i class="ion-ios-arrow-round-forward"></i></a></span> <span>Gallery</span></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="ftco-section ftco-no-pt ftco-no-pb">
+        <div class="container-fluid p-0">
+        <div class="row no-gutters">
+            {% for image in gallery_images %}
+            <div class="col-md-6 col-lg-3 ftco-animate">
+                <div class="project" style="height: 550px; overflow: hidden;">
+                    <div class="image-container" style="width: 100%; height: 100%; position: relative;">
+                        <img src="{{ image.gallery_image.url }}"
+                             alt="{{ image.image_name }}"
+                             style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0;">
+                        <div class="text">
+                            <span>{{ image.image_description }}</span>
+                            <h3><a href="#">{{ image.image_name }}</a></h3>
+                        </div>
+                        <a href="{{ image.gallery_image.url }}" class="icon image-popup d-flex justify-content-center align-items-center">
+                            <span class="icon-expand"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    </section>
+
+{% endblock %}

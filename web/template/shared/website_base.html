@@ -1,0 +1,131 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link
+      rel="icon"
+      href="{% static 'img/kaiadmin/favicon.ico' %}"
+      type="image/x-icon"
+    />
+    <title>AI-Solution - An AI-powered web platform offering personalized insights, and interactive solutions to specific industry needs.</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Barlow+Condensed:500,600,700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'css/open-iconic-bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/animate.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
+    <link rel="stylesheet" href="{% static 'css/aos.css' %}">
+    <link rel="stylesheet" href="{% static 'css/ionicons.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap-datepicker.css' %}">
+    <link rel="stylesheet" href="{% static 'css/jquery.timepicker.css' %}">
+    <link rel="stylesheet" href="{% static 'css/flaticon.css' %}">
+    <link rel="stylesheet" href="{% static 'css/icomoon.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/chat.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Timeline.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  </head>
+  <body>
+  <!-- NavBar -->
+  {% include 'shared/navigation_bar.html' %}
+  <!-- NavBar -->
+
+  <div class="chat-icon" id="chatIcon">
+    <i class="fas fa-comments"></i>
+  </div>
+
+    <div class="chat-container" id="chatContainer">
+        <div class="chat-header">
+            <div class="header-content">
+                <div class="header-left">
+                    <div class="avatar">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <div class="header-info">
+                        <span class="title">Customer Support</span>
+                        <span class="status">
+                            <span class="status-dot"></span>
+                            Online
+                        </span>
+                    </div>
+                </div>
+                <div class="header-right">
+                    <span class="close-chat" id="closeChat"><i class="fas fa-times"></i></span>
+                </div>
+            </div>
+        </div>
+        <div class="chat-messages" id="messageContainer" hx-swap-oob="beforeend">
+            <!-- Messages will be inserted here -->
+        </div>
+        <!-- Loading indicator -->
+        <div id="loading-indicator" class="loading-message bot-message" style="display: none;">
+            <div class="message-content">
+                <div class="typing-indicator">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+        <div class="chat-input">
+            <div class="input-wrapper">
+                <form hx-post="{% url 'process_message' %}"
+                      hx-target="#messageContainer"
+                      hx-swap="beforeend"
+                      hx-on::after-request="this.reset()"
+                      hx-indicator="#loading-indicator"
+                      hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
+                    <input type="text"
+                           name="message"
+                           placeholder="Type your message here..."
+                           required>
+                    <div class="input-actions">
+                        <button class="send-message" type="submit">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+  <!-- Main Content -->
+  {% block content %}
+  {% endblock %}
+  <!-- Main Content -->
+
+  <!-- loader -->
+  <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+  <!-- loader -->
+
+  <!-- Footer -->
+  {% include 'shared/website_footer.html' %}
+  <!-- Footer -->
+
+  <script src="{% static 'js/jquery.min.js' %}"></script>
+  <script src="{% static 'js/jquery-migrate-3.0.1.min.js' %}"></script>
+  <script src="{% static 'js/popper.min.js' %}"></script>
+  <script src="{% static 'js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'js/jquery.easing.1.3.js' %}"></script>
+  <script src="{% static 'js/jquery.waypoints.min.js' %}"></script>
+  <script src="{% static 'js/jquery.stellar.min.js' %}"></script>
+  <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+  <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+  <script src="{% static 'js/aos.js' %}"></script>
+  <script src="{% static 'js/jquery.animateNumber.min.js' %}"></script>
+  <script src="{% static 'js/bootstrap-datepicker.js' %}"></script>
+  <script src="{% static 'js/jquery.timepicker.min.js' %}"></script>
+  <script src="{% static 'js/scrollax.min.js' %}"></script>
+  <script src="{% static 'js/main.js' %}"></script>
+  <!-- HTMX -->
+  <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+  <!-- HTMX -->
+  <script src="{% static 'js/chat.js' %}"></script>
+  </body>
+</html>

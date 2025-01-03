@@ -1,0 +1,57 @@
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">S.No</th>
+            <th scope="col">Image</th>
+            <th scope="col">Name</th>
+            <th scope="col">Description</th>
+            <th scope="col">Created Date</th>
+            <th scope="col">Updated Date</th>
+            <th scope="col">Created By</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for gallery in galleries %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>
+                {% if gallery.gallery_image %}
+                    <img src="{{ gallery.gallery_image.url }}"
+                         alt="{{ gallery.image_name }}"
+                         style="width: 100px; height: 100px; object-fit: contain;">
+                {% else %}
+                    <div class="text-muted">No image</div>
+                {% endif %}
+            </td>
+            <td>{{ gallery.image_name }}</td>
+            <td>{{ gallery.image_description }}</td>
+            <td>{{ gallery.created_date|date:"M d, Y" }}</td>
+            <td>{{ gallery.updated_date|date:"M d, Y" }}</td>
+            <td>{{ gallery.created_by.username }}</td>
+            <td>
+                <div class="btn-group gap-2" role="group">
+                    <button class="btn btn-warning btn-sm"
+                            hx-get="{% url 'admin_gallery_form' %}?id={{ gallery.id }}"
+                            hx-target="#galleryModal"
+                            hx-trigger="click"
+                            hx-on::after-request="new bootstrap.Modal(document.getElementById('galleryModal')).show()">
+                        Edit
+                    </button>
+                     <button class="btn btn-danger btn-sm"
+                            hx-delete="{% url 'delete_gallery' gallery.id %}"
+                            hx-target="#gallery-table"
+                            hx-confirm="Are you sure you want to delete this service?"
+                            hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
+                        Delete
+                    </button>
+                </div>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="8" class="text-center">No gallery images found</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

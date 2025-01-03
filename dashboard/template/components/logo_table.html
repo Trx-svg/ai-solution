@@ -1,0 +1,59 @@
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">S.No</th>
+            <th scope="col">Logo</th>
+            <th scope="col">Status</th>
+            <th scope="col">Created Date</th>
+            <th scope="col">Updated Date</th>
+            <th scope="col">Created By</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for logo in logos %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>
+                {% if logo.site_logo %}
+                    <img src="{{ logo.site_logo.url }}"
+                         alt="Site Logo"
+                         style="width: 150px; height: auto; object-fit: contain;">
+                {% else %}
+                    <div class="text-muted">No logo</div>
+                {% endif %}
+            </td>
+            <td>
+                <span class="badge {% if logo.active %}bg-success{% else %}bg-secondary{% endif %}">
+                    {% if logo.active %}Active{% else %}Inactive{% endif %}
+                </span>
+            </td>
+            <td>{{ logo.created_date|date:"M d, Y" }}</td>
+            <td>{{ logo.updated_date|date:"M d, Y" }}</td>
+            <td>{{ logo.created_by.username }}</td>
+            <td>
+                <div class="btn-group gap-2" role="group">
+                    <button class="btn btn-warning btn-sm"
+                            hx-get="{% url 'admin_site_logo_form' %}?id={{ logo.id }}"
+                            hx-target="#logoModal"
+                            hx-trigger="click"
+                            hx-on::after-request="new bootstrap.Modal(document.getElementById('logoModal')).show()">
+                        Edit
+                    </button>
+                    <button class="btn btn-danger btn-sm"
+                            hx-delete="{% url 'delete_site_logo' logo.id %}"
+                            hx-target="#logo-table"
+                            hx-confirm="Are you sure you want to delete this logo?"
+                            hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
+                        Delete
+                    </button>
+                </div>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="7" class="text-center">No logos found</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

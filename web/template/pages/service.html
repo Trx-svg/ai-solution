@@ -1,0 +1,127 @@
+{% extends 'shared/website_base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <section class="hero-wrap hero-wrap-2" style="background-image: url('{% static "images/1-bread-home.jpeg" %}');" data-stellar-background-ratio="0.5">
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-center">
+          <div class="col-md-9 ftco-animate pb-5 text-center">
+            <h2 class="mb-0 bread">Services</h2>
+            <p class="breadcrumbs"><span class="mr-2"><a href="{% url 'home' %}">Home <i class="ion-ios-arrow-round-forward"></i></a></span> <span>Services</span></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="services-section ftco-section">
+      <div class="container">
+      	<div class="row justify-content-center pb-3">
+          <div class="col-md-10 heading-section text-center ftco-animate">
+          	<span class="subheading">Services</span>
+            <h2 class="mb-4">Services Menu</h2>
+            <p>Transform Your Business Operations with Tailored AI Solutions Designed to Drive Innovation, Efficiency, and Sustainable Growth.</p>
+          </div>
+        </div>
+        <div class="row no-gutters d-flex">
+            {% for service in services %}
+            <div class="col-md-6 col-lg-3 d-flex align-self-stretch ftco-animate">
+                <div class="media block-6 services d-block text-center">
+                    <div class="icon">
+                        {% if service.icon %}
+                            <img src="{{ service.icon.url }}" alt="{{ service.name }}" style="width: 64px; height: 64px; object-fit: contain;">
+                        {% else %}
+                            <span class="flaticon-profile" style="font-size: 64px;"></span>
+                        {% endif %}
+                    </div>
+                    <div class="media-body">
+                        <h3 class="heading mb-3">{{ service.name }}</h3>
+                        <p>{{ service.description }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+      </div>
+    </section>
+
+    <section class="ftco-section ftco-pricing">
+        <div class="container">
+            <div class="row justify-content-center pb-3">
+      <div class="col-md-10 heading-section text-center ftco-animate">
+        <span class="subheading">Pricing</span>
+        <h2 class="mb-4">Our Prices</h2>
+        <p>Customizable packages to fit every budget, from startups to enterprises.</p>
+      </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 ftco-animate">
+            <div class="pricing-entry pb-5 text-center">
+                <div>
+                    <h3 class="mb-4">Base</h3>
+                    <p><span class="price">$19.99</span> <span class="per">/ month</span></p>
+                </div>
+                <ul>
+                     <li>Basic Data Analysis</li>
+                    <li>Simple ML Models</li>
+                    <li>Weekly Reports</li>
+                    <li>Email Support</li>
+                    <li>5GB Storage</li>
+                </ul>
+                <p class="button text-center"><a href="#" class="btn btn-primary px-4 py-3">Get Offer</a></p>
+            </div>
+        </div>
+        <div class="col-md-3 ftco-animate">
+            <div class="pricing-entry pb-5 text-center">
+                <div>
+                    <h3 class="mb-4">Plus</h3>
+                    <p><span class="price">$34.50</span> <span class="per">/ month</span></p>
+                </div>
+                <ul>
+                    <li>Advanced Analytics</li>
+                    <li>Custom ML Models</li>
+                    <li>Real-time Monitoring</li>
+                    <li>Priority Support</li>
+                    <li>20GB Storage</li>
+                </ul>
+                <p class="button text-center"><a href="#" class="btn btn-primary px-4 py-3">Get Offer</a></p>
+            </div>
+        </div>
+        <div class="col-md-3 ftco-animate">
+            <div class="pricing-entry active pb-5 text-center">
+                <div>
+                    <h3 class="mb-4">Pro</h3>
+                    <p><span class="price">$54.50</span> <span class="per">/ month</span></p>
+                </div>
+                <ul>
+                    <li>Predictive Analytics</li>
+                    <li>Deep Learning Models</li>
+                    <li>API Integration</li>
+                    <li>24/7 Support</li>
+                    <li>50GB Storage</li>
+                </ul>
+                <p class="button text-center"><a href="#" class="btn btn-primary px-4 py-3">Get Offer</a></p>
+            </div>
+        </div>
+        <div class="col-md-3 ftco-animate">
+            <div class="pricing-entry pb-5 text-center">
+                <div>
+                    <h3 class="mb-4">Ultra Pro</h3>
+                    <p><span class="price">$89.50</span> <span class="per">/ month</span></p>
+                </div>
+                <ul>
+                    <li>Enterprise AI Suite</li>
+                    <li>Custom Solutions</li>
+                    <li>Full Integration</li>
+                    <li>Dedicated Support</li>
+                    <li>100GB Storage</li>
+                </ul>
+                <p class="button text-center"><a href="#" class="btn btn-primary px-4 py-3">Get Offer</a></p>
+            </div>
+            </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

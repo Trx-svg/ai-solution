@@ -1,0 +1,57 @@
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">{% if form.instance.id %}Edit{% else %}Add{% endif %} Event</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form hx-post="{% url 'admin_event_form' %}{% if form.instance.id %}?id={{ form.instance.id }}{% endif %}"
+              hx-target="#event-table">
+            <div class="modal-body">
+                {% csrf_token %}
+                {% if form.instance.id %}
+                    <input type="hidden" name="event_id" value="{{ form.instance.id }}">
+                {% endif %}
+                <div class="mb-3">
+                    <label class="form-label">Name</label>
+                    {{ form.name }}
+                    {% if form.name.errors %}
+                    <div class="invalid-feedback d-block">
+                        {{ form.name.errors }}
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Description</label>
+                    {{ form.description }}
+                    {% if form.description.errors %}
+                    <div class="invalid-feedback d-block">
+                        {{ form.description.errors }}
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Date & Time</label>
+                    {{ form.date_time }}
+                    {% if form.date_time.errors %}
+                    <div class="invalid-feedback d-block">
+                        {{ form.date_time.errors }}
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Timezone</label>
+                    {{ form.timezone }}
+                    {% if form.timezone.errors %}
+                    <div class="invalid-feedback d-block">
+                        {{ form.timezone.errors }}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
+            </div>
+        </form>
+    </div>
+</div>
